@@ -1,0 +1,50 @@
+:host ::ng-deep .p-dialog .p-dialog-content {
+    background: none;
+}
+
+.labelValidator {
+    color: red;
+}
+.margin-top{
+    margin-top: 50px;
+}
+.custom-select {
+    height: auto;
+    padding: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 400;
+    color: none;
+    // background-color: #FDFDFD;
+    border: 1px solid #312BC6;
+}
+
+.btn.focus,
+.btn:focus,
+.form-control:focus,
+.custom-select:focus,
+.custom-select:focus {
+    box-shadow: none;
+}
+
+.form-control:focus,
+.custom-select:focus {
+    border: 1px solid #0C1CFF;
+}
+
+// :host ::ng-deep .p-dialog .p-dialog-content {
+//     background: none !important;
+//     color: black !important;
+//     padding: 0 1.5rem 2rem 1.5rem;
+// }
+
+// :host ::ng-deep .p-dialog .p-dialog-content {
+//     background: none !important;
+//     color: black !important;
+//     padding: 0 1.5rem 2rem 1.5rem;
+// }
+
+// :host ::ng-deep .p-inputtext {
+//     background: none !important;
+//     color: black !important;
+// }

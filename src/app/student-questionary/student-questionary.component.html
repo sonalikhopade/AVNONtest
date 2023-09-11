@@ -1,0 +1,122 @@
+<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+<p-dialog header="Add New Question" [(visible)]="visible" [style]="{ width: '50vw' }">
+    <div class="flex py-2 justify-content-center">
+        <form [formGroup]="QuationaryForm" (ngSubmit)="onSubmit(QuationaryForm.value)">
+            <div class="row col-12">
+                <div class="col-md-8 col-sm-8">
+                    <label for="">Choose Question Type</label>
+                    <select class="form-control edited" (change)="changeSelections($event)" formControlName="name">
+                        <option value="">Choose Question Type</option>
+                        <option *ngFor="let name of typeList" [ngValue]="name">{{name.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row col-12" *ngIf="selctedtypeId == '2: Object'">
+                <div class="col-md-8 col-sm-8">
+                    <label for="">Add a New Questions</label>
+                    <input class="form-control edited" type="text" formControlName="qustion"
+                        placeholder="Add Questions Here" />
+                </div>
+            </div>
+            <div class="row col-12" *ngIf="selctedtypeId == '1: Object'">
+                <div class="col-md-8 col-sm-8">
+                    <label for="">Add a New Questions</label>
+                    <input class="form-control edited" type="text" formControlName="qustion"
+                        placeholder="Add Questions Here" />
+                </div>
+
+                <div class="col-md-8 col-sm-8">
+                    <label for="">Add a Option Here</label>
+                    <input class="margin form-control  edited" type="text" formControlName="answer"
+                        placeholder="Add Option Here" />
+                </div>
+            </div>
+
+            <fieldset *ngIf="selctedtypeId == '2: Object'">
+                <div class="row col-12">
+                    <ng-container formArrayName="contacts" *ngFor="let contact of contacts.controls; index as i">
+                        <ng-container [formGroupName]="i">
+                            <div class="col-md-8 col-sm-8">
+                                <label for="">Add New Option Here</label>
+                                <input class=" form-control  edited" type="text" formControlName="answer"
+                                    placeholder="Add Option Here" [disabled]="qustion" />
+                            </div>
+                            <div class="col-md-2 col-sm-2" style="margin-top: 35px;">
+                                <p-button type="button" (click)="removeContactField(i)" icon="pi pi-trash"></p-button>
+                            </div>
+                            <br><br>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="row mt-3">
+                    <button type="button" (click)="addNewRow()" class="btn btn-primary">Add new Row</button>
+                </div>
+            </fieldset>
+
+            <div class="row float-right">
+                <button type="submit" class="btn btn-success btn-block">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</p-dialog>
+
+<div class="container" *ngIf="IntroductionField">
+    <div class="row card">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+            <form [formGroup]="IntroductionForm" (ngSubmit)="onSubmitIntro()">
+                <div class="col">
+                    <label for="introduction"><b>Please tell us about yourself </b><span
+                            class="labelValidator">*</span></label>
+                    <textarea type="text" class="form-control" id="introduction"
+                        formControlName="introduction"></textarea>
+                </div>
+                <div class="row" *ngIf="selctedtypeId == '2: Object'">
+                    <table>
+                        <ul *ngFor="let data1 of answerLists">
+                            <b>{{data1.question}}</b><br>
+                            <div *ngFor="let data of data1.answerList">
+                                <input type="checkbox" formControlName="anscheckbox" class="form-check-input"
+                                    value="data" (click)="getcheckboxvalue($event.target.checked,data1,data)" />
+                                {{data.answer}}
+                            </div>
+                        </ul>
+                    </table>
+                </div>
+                <div class="row" *ngIf="selctedtypeId == '1: Object'">
+                    <table>
+                        <ul *ngFor="let data1 of answerLists">
+                            <b>{{data1.question}}</b><br>
+                            {{data1.answer}}
+                        </ul>
+                    </table>
+                </div>
+                <button class="btn btn-primary float-right" type="submit">Review My Answers</button> &nbsp;<br>
+                <a href="" (click)="addNew()">Add New Question</a>
+            </form>
+        </div>
+    </div>
+</div>
+<p-dialog [(visible)]="visible1" [style]="{ width: '50vw' }">
+    <div class="col-12 row">
+        <div class="col-md-7 flex py-2 justify-content-center">
+            <label for=""><b>Please tell us about yourself ? *</b></label><br>
+            {{selftinstroduction}}
+        </div>
+    </div>
+    <hr>
+    <div class="col-md-7 flex py-2 justify-content-center" *ngIf="selctedtypeId == '2: Object'">
+        <div *ngFor="let item of answerLists">
+            <b>{{item.question}}</b>
+            <div *ngFor="let data of item.answerList; let i = index">
+                {{ data.checked == true ? data.answer : '' }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 flex py-2 justify-content-center" *ngIf="selctedtypeId == '1: Object'">
+        <div *ngFor="let item of answerLists">
+            <b>{{item.question}}</b> <br>
+            {{ item.answer}}
+        </div>
+    </div>
+</p-dialog>
